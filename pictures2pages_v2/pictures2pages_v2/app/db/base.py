@@ -1,6 +1,8 @@
 """Define the base sqlalchemy model class."""
 # mypy: ignore-errors
 from typing import Any
+# app/db/base.py
+
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
 from sqlalchemy import inspect
 
