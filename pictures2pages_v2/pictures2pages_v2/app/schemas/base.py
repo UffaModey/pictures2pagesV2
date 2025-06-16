@@ -1,5 +1,5 @@
 """Define response model for the endpoint version."""
-from pydantic import BaseModel, Field  # type: ignore
+from pydantic import BaseModel, Field, EmailStr  # type: ignore
 from typing import Optional
 from datetime import datetime
 
@@ -141,6 +141,12 @@ class UserCreate(UserBase):
     Includes password field for registration.
     Feature: User registration with AWS Cognito.
     """
+    username: str
+    email: EmailStr  # This will reject None!
+    password: str
+
+class UserLogin(BaseModel):
+    username: str
     password: str
 
 class UserResponse(UserBase):
@@ -153,3 +159,13 @@ class UserResponse(UserBase):
 
     class Config:
         orm_mode = True
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: Optional[str] = None
+
