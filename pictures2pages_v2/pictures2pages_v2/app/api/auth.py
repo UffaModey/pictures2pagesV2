@@ -22,7 +22,7 @@ fake_users_db = {
 }
 
 # JWT settings
-SECRET_KEY = "79b7fc559b4f32473421a700f8d78e1073ec1504544ff301f0c56a5479405c53"
+SECRET_KEY = ""
 ALGORITHM = "HS256"
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
