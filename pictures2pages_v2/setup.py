@@ -12,26 +12,29 @@ def _parse_requirements(filename):
     return [p for p in requirements if "-r" not in p]
 
 
-NAME = 'pictures2pages_v2'
-SHORT_DESCRIPTION = "A creative AI-powered platform where users transform images into stories or poems."
+NAME = "pictures2pages_v2"
+SHORT_DESCRIPTION = (
+    "A creative AI-powered platform where users transform images into stories or poems."
+)
 URL = "https://github.com/UffaModey/pictures2pagesV2#"
-AUTHOR = 'Fafa Modey'
-EMAIL = 'hello@fafa.codes'
+AUTHOR = "Fafa Modey"
+EMAIL = "hello@fafa.codes"
 
 try:
-    VERSION = import_module(NAME+".app.version").__version__
+    VERSION = import_module(NAME + ".app.version").__version__
 except Exception as e:
-    print("Version information cannot be imported using "
-          f"'importlib.import_module' due to {e}.")
+    print(
+        "Version information cannot be imported using "
+        f"'importlib.import_module' due to {e}."
+    )
     about = dict()
-    version_path = Path(__file__).resolve().parent.joinpath(NAME, "app",
-                                                            "version.py")
+    version_path = Path(__file__).resolve().parent.joinpath(NAME, "app", "version.py")
     exec(version_path.read_text(), about)
     VERSION = about["__version__"]
 
 try:
     # Load README as description of package
-    with open('README.md', encoding="utf-8") as readme_file:
+    with open("README.md", encoding="utf-8") as readme_file:
         LONG_DESCRIPTION = readme_file.read()
 except FileNotFoundError:
     LONG_DESCRIPTION = SHORT_DESCRIPTION
@@ -46,18 +49,25 @@ DOC_REQUIRED = _parse_requirements(os.path.join("requirements", "doc.txt"))
 EXTRAS = {"doc": DOC_REQUIRED}
 
 
-setup(name=NAME,
-      version=VERSION,
-      author=AUTHOR,
-      author_email=EMAIL,
-      description=SHORT_DESCRIPTION,
-      long_description=LONG_DESCRIPTION,
-      long_description_content_type='text/markdown',
-      url=URL,
-      packages=find_packages(include=["pictures2pages_v2*"],
-                             exclude=["tests*", "scripts*", "docs*"]),
-      package_data={NAME: ["data/*", ], },
-      install_requires=INSTALL_REQUIRED,
-      test_requires=DEV_REQUIRED,
-      extras_require=EXTRAS,
-      setup_requires=['wheel'])
+setup(
+    name=NAME,
+    version=VERSION,
+    author=AUTHOR,
+    author_email=EMAIL,
+    description=SHORT_DESCRIPTION,
+    long_description=LONG_DESCRIPTION,
+    long_description_content_type="text/markdown",
+    url=URL,
+    packages=find_packages(
+        include=["pictures2pages_v2*"], exclude=["tests*", "scripts*", "docs*"]
+    ),
+    package_data={
+        NAME: [
+            "data/*",
+        ],
+    },
+    install_requires=INSTALL_REQUIRED,
+    test_requires=DEV_REQUIRED,
+    extras_require=EXTRAS,
+    setup_requires=["wheel"],
+)

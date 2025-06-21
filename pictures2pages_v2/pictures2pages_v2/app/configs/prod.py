@@ -1,4 +1,5 @@
 """Production environment configuration."""
+
 # mypy: ignore-errors
 from ..utils.logging import ColorFormatter, StandardFormatter
 from .base import Settings, LoggingConfig
@@ -10,28 +11,23 @@ class SettingsProd(Settings):
         "version": 1,
         "disable_existing_loggers": False,
         "formatters": {
-            'colorFormatter': {'()': ColorFormatter},
-            'standardFormatter': {'()': StandardFormatter},
+            "colorFormatter": {"()": ColorFormatter},
+            "standardFormatter": {"()": StandardFormatter},
         },
         "handlers": {
-            'consoleHandler': {
-                'class': 'logging.StreamHandler',
-                'level': "ERROR",
-                'formatter': 'standardFormatter',
-                'stream': 'ext://sys.stdout',
+            "consoleHandler": {
+                "class": "logging.StreamHandler",
+                "level": "ERROR",
+                "formatter": "standardFormatter",
+                "stream": "ext://sys.stdout",
             },
         },
         "loggers": {
             "smc_crawler": {
-                'handlers': ['consoleHandler'],
-                'level': "ERROR",
+                "handlers": ["consoleHandler"],
+                "level": "ERROR",
             },
-            "uvicorn": {
-                'handlers': ['consoleHandler']
-            },
-            "uvicorn.access": {
-                'handlers': []
-            }
-        }
-
+            "uvicorn": {"handlers": ["consoleHandler"]},
+            "uvicorn.access": {"handlers": []},
+        },
     }

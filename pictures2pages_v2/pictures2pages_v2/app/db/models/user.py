@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from app.db.base import Base
 
+
 class User(Base):
     __tablename__ = "users"
 
@@ -13,3 +14,4 @@ class User(Base):
 
     # Relationships
     images = relationship("Image", back_populates="owner")
+    generated_contents = relationship("GeneratedContent", back_populates="owner")

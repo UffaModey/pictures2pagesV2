@@ -1,5 +1,6 @@
 """Configuration interface, provides a function `get_settings` to get the
 used settings instance for the API service."""
+
 import os
 import logging
 from functools import lru_cache

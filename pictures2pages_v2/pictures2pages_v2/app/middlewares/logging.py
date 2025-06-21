@@ -1,4 +1,5 @@
 """Define logging related middleware functions."""
+
 import logging
 import time
 from fastapi import Request, Response

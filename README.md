@@ -4,8 +4,8 @@ Turn uploaded images into AI-generated poems and stories using this full-stack, 
 
 ## 🚀 Features
 
-- ✅ User registration and authentication with AWS Cognito
-- 📸 Upload and manage images
+- ✅ User registration and authentication with PyJWT
+- 📸 Upload to S3 and manage images 
 - ✍️ Generate poems or stories from images using OpenAI
 - 🔒 Set content visibility (public or private)
 - 🔍 Browse public content by other users

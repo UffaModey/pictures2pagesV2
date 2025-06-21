@@ -1,4 +1,5 @@
 """Define logging related utility functions and classes."""
+
 import logging
 import click
 from http import HTTPStatus
@@ -11,11 +12,12 @@ status_code_colors = {
     4: lambda code: click.style(str(code), fg="red"),
     5: lambda code: click.style(str(code), fg="bright_red"),
 }
-request_msg_format = "%s:%d - \"%s\" %s - %.2fms"
+request_msg_format = '%s:%d - "%s" %s - %.2fms'
 
 
-def get_request_msg_args(request: Request, response: Response,
-                         process_time: float) -> tuple:
+def get_request_msg_args(
+    request: Request, response: Response, process_time: float
+) -> tuple:
     """Format the message for processing a http request.
 
     Args:
@@ -31,16 +33,26 @@ def get_request_msg_args(request: Request, response: Response,
         status = f"{response_status.value} {response_status.phrase}"
     except ValueError:
         status = f"{response.status_code} Unknown Error"
-    method_path = f"{request.method} {request.url.path} HTTP/{request.scope['http_version']}"
-    args = (request.client.host, request.client.port,  # type: ignore
-            method_path, status, process_time)
+    method_path = (
+        f"{request.method} {request.url.path} HTTP/{request.scope['http_version']}"
+    )
+    args = (
+        request.client.host,
+        request.client.port,  # type: ignore
+        method_path,
+        status,
+        process_time,
+    )
     return args
 
 
 class StandardFormatter(logging.Formatter):
     """Logging Formatter to count warning / errors"""
-    msg_format = "%(asctime)-22.19s %(name)-21s [%(levelname)s]:    " \
-                 "%(message)s    (%(filename)s:%(lineno)d)"
+
+    msg_format = (
+        "%(asctime)-22.19s %(name)-21s [%(levelname)s]:    "
+        "%(message)s    (%(filename)s:%(lineno)d)"
+    )
 
     def build_msg_format(self, *args, **kwargs) -> str:
         """Wrapper function for building message customized format.
@@ -66,28 +78,30 @@ class StandardFormatter(logging.Formatter):
 
 class ColorFormatter(StandardFormatter):
     """Logging Formatter to add colors and count warning / errors"""
-    msg_format = "%(asctime)-22.19s {bold_name} {color_levelname:29}" \
-                 "%(message)s    (%(filename)s:%(lineno)d)"
+
+    msg_format = (
+        "%(asctime)-22.19s {bold_name} {color_levelname:29}"
+        "%(message)s    (%(filename)s:%(lineno)d)"
+    )
 
     level_name_colors = {
-        logging.DEBUG: lambda level_name: click.style(str(level_name),
-                                                      fg="cyan"),
-        logging.INFO: lambda level_name: click.style(str(level_name),
-                                                     fg="green"),
-        logging.WARNING: lambda level_name: click.style(str(level_name),
-                                                        fg="yellow"),
-        logging.ERROR: lambda level_name: click.style(str(level_name),
-                                                      fg="red"),
-        logging.CRITICAL: lambda level_name: click.style((level_name),
-                                                         fg="bright_red"),
-        logging.NOTSET: lambda level_name: click.style(str(level_name),
-                                                       fg="blue")
+        logging.DEBUG: lambda level_name: click.style(str(level_name), fg="cyan"),
+        logging.INFO: lambda level_name: click.style(str(level_name), fg="green"),
+        logging.WARNING: lambda level_name: click.style(str(level_name), fg="yellow"),
+        logging.ERROR: lambda level_name: click.style(str(level_name), fg="red"),
+        logging.CRITICAL: lambda level_name: click.style((level_name), fg="bright_red"),
+        logging.NOTSET: lambda level_name: click.style(str(level_name), fg="blue"),
     }
 
     @staticmethod
-    def format_request_msg(msg: str, host: str, port: int,
-                           method_path: str, status: str,
-                           process_time: float) -> str:
+    def format_request_msg(
+        msg: str,
+        host: str,
+        port: int,
+        method_path: str,
+        status: str,
+        process_time: float,
+    ) -> str:
         """Format the message for processing a http request.
 
         Args:
@@ -120,7 +134,8 @@ class ColorFormatter(StandardFormatter):
         color_func = self.level_name_colors.get(record.levelno, lambda x: x)
         log_fmt = self.msg_format.format(
             color_levelname="[" + color_func("%(levelname)s") + "]:",
-            bold_name=click.style("%(name)-21s", bold=True))
+            bold_name=click.style("%(name)-21s", bold=True),
+        )
         return log_fmt
 
     def format(self, record: logging.LogRecord) -> str:

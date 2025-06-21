@@ -55,4 +55,6 @@ backup/*
 
 venv
 
+.env
+
 !.keep

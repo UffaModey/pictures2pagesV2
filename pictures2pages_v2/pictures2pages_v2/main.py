@@ -1,4 +1,5 @@
 """Main function for running the API service."""
+
 # mypy: ignore-errors
 import uvicorn
 from app import create_application

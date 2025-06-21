@@ -12,13 +12,17 @@ def test_create_application():
 
 @mock.patch("pictures2pages_v2.app.application.get_settings")
 def test_create_application_with_cors_origins(mocked_get_settings):
-    mocked_get_settings.return_value = Settings(CORS_ORIGINS="https://example.com, https://example.de")
+    mocked_get_settings.return_value = Settings(
+        CORS_ORIGINS="https://example.com, https://example.de"
+    )
     app = create_application()
     assert isinstance(app, FastAPI)
     for m in app.user_middleware:
         if isinstance(m, CORSMiddleware):
-            assert m.options == {'allow_origins': ['https://example.com', 'https://example.de'],
-                                 'allow_origin_regex': 'https:\\/\\/.*\\.example\\.?',
-                                 'allow_credentials': True,
-                                 'allow_methods': ['GET'],
-                                 'allow_headers': []}
+            assert m.options == {
+                "allow_origins": ["https://example.com", "https://example.de"],
+                "allow_origin_regex": "https:\\/\\/.*\\.example\\.?",
+                "allow_credentials": True,
+                "allow_methods": ["GET"],
+                "allow_headers": [],
+            }

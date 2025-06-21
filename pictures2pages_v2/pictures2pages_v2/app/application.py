@@ -1,4 +1,5 @@
 """Module containing FastAPI instance related functions and classes."""
+
 # mypy: ignore-errors
 import logging.config
 from fastapi import FastAPI
@@ -24,17 +25,18 @@ def create_application() -> FastAPI:
         object of FastAPI: the fastapi application instance.
     """
     settings = get_settings()
-    application = FastAPI(title=settings.PROJECT_NAME,
-                          debug=settings.DEBUG,
-                          version=__version__,
-                          openapi_url=f"{settings.API_STR}/openapi.json")
+    application = FastAPI(
+        title=settings.PROJECT_NAME,
+        debug=settings.DEBUG,
+        version=__version__,
+        openapi_url=f"{settings.API_STR}/openapi.json",
+    )
 
     # Set all CORS enabled origins
     if settings.CORS_ORIGINS:
         application.add_middleware(
             CORSMiddleware,
-            allow_origins=[str(origin) for origin in
-                           settings.CORS_ORIGINS],
+            allow_origins=[str(origin) for origin in settings.CORS_ORIGINS],
             allow_origin_regex=settings.CORS_ORIGIN_REGEX,
             allow_credentials=settings.CORS_CREDENTIALS,
             allow_methods=settings.CORS_METHODS,

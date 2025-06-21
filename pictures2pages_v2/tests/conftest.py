@@ -3,6 +3,8 @@ from fastapi.testclient import TestClient
 from pictures2pages_v2.app.application import create_application
 from pictures2pages_v2.app.db.session import engine, SessionLocal
 from pictures2pages_v2.app.db.base import Base
+
+
 @pytest.fixture
 def test_client():
     app = create_application()
@@ -18,4 +20,3 @@ def db_session():
     session.close()
     Base.metadata.drop_all(engine)
     engine.dispose()
-

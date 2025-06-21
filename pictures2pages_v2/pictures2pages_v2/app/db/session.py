@@ -1,5 +1,6 @@
 """Define a session instance for doing all database related operations inside
 the app."""
+
 # mypy: ignore-errors
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker

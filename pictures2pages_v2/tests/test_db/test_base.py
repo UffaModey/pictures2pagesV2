@@ -14,5 +14,6 @@ def test_tablename():
 
 def test_asdict():
     d = DummyTable(id=1, username="dummy username", fullname="dummy fullname")
-    assert d._asdict() == dict(id=1, username="dummy username",
-                               fullname="dummy fullname")
+    assert d._asdict() == dict(
+        id=1, username="dummy username", fullname="dummy fullname"
+    )
